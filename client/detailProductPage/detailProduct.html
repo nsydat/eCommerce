@@ -1,0 +1,251 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" type="text/css" href="detailProduct.css">
+    <title>Chi tiết sản phẩm</title>
+</head>
+<header>
+    <nav class="navbar navbar-expand-lg navbar-light bg-dark">
+        <div class="container">
+            <a class="navbar-brand" href="../homePage/homePage.html">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="50" height="50">
+                    <circle cx="50" cy="50" r="45" fill="rgb(240, 101, 197)"/>
+                    <circle cx="50" cy="50" r="35" fill="rgb(127, 68, 255)"/>
+                </svg>
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false"
+                aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="../homePage/homePage.html">Trang chủ</a>
+                    </li>
+                      <li class="nav-item">
+                        <a class="nav-link" href="#">Thông báo</a>
+                      </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="../orderPage/order.html">
+                            <i class="fa-solid fa-cart-shopping"></i>
+                          Giỏ hàng
+                        </a>
+                    </li>
+                      <li class="nav-item">
+                        <a class="nav-link" href="../loginPage/loginPage.html">Đăng nhập</a>
+                      </li>
+                </ul>
+        </div>
+    </nav>
+</header>
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6">
+                <div id="carouselExample" class="carousel slide" data-bs-ride="carousel">
+                    <div class="carousel-inner">
+                       
+                    </div>
+                    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">
+                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Previous</span>
+                    </button>
+                    <button class="carousel-control-next" type="button" data-bs-target="#carouselExample" data-bs-slide="next">
+                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Next</span>
+                    </button>
+                </div>
+                <div class="row">
+                    <div class="thumbnail-container">
+                       
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="product-details">
+                    <h2>Thông tin chi tiết sản phẩm</h2>
+                    <h5 id="product-name"></h5>
+                    <p id="product-description"></p>
+                    <p id="product-price"></p>
+                </div>
+                
+                    <div class="product-actions">
+                        <button class="btn btn-primary" onclick="addToCart()">Thêm vào giỏ hàng</button>
+                        <button class="btn btn-success">Mua ngay</button>
+                    </div>
+                    <div class="product-quantity">
+                        <div class="border-wrapper">
+                            <button onclick="decreaseQuantity()">-</button>
+                            <input type="text" value="1" id="quantityInput">
+                            <button onclick="increaseQuantity()">+</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <script>
+            function decreaseQuantity() {
+                var quantityInput = document.getElementById("quantityInput");
+                var currentQuantity = parseInt(quantityInput.value, 10);
+        
+                if (currentQuantity > 1) {
+                    quantityInput.value = currentQuantity - 1;
+                }
+            }
+        
+            function increaseQuantity() {
+                var quantityInput = document.getElementById("quantityInput");
+                var currentQuantity = parseInt(quantityInput.value, 10);
+        
+                quantityInput.value = currentQuantity + 1;
+            }
+        </script>
+    </div>
+    <footer>
+        <div class="footer">
+            <div class="container">
+                <div class="row product-description">
+                    <div class="col-md-6">
+                        <p>&copy: 2023 Your Company. All rights reserved</p>
+                    </div>
+                    <div class="col-md-6">
+                        <p class="text-end">Terms of Service | Privacy Policy</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const productId = urlParams.get('id');
+            if (productId) {
+                fetchProductDetails(productId);
+            } else {
+                console.log('Product ID is missing');
+            }
+        });
+        
+        function fetchProductDetails(productId) {
+            fetch(`http://localhost:8088/api/v1/products/${productId}`)
+                .then(response => response.json())
+                .then(data => {
+                    getProductDetails(data);
+                })
+                .catch(error => console.error('Error fetching product details:', error));
+        }
+
+        function fetchProductImages(productId) {
+            return fetch(`http://localhost:8088/api/v1/products/${productId}/images`)
+                .then(response => response.json())
+                .catch(error => {
+                    console.error('Error fetching product images:', error);
+                    return [];
+                });
+        }
+        
+        function getProductDetails(product) {
+            const productNameElement = document.getElementById('product-name');
+            const productDescriptionElement = document.getElementById('product-description');
+            const productPriceElement = document.getElementById('product-price');
+        
+            productNameElement.textContent = `Tên sản phẩm: ${product.name}`;
+            productDescriptionElement.textContent = `Mô tả: ${product.description}`;
+            productPriceElement.textContent = `Giá sản phẩm: ${product.price} VND`;
+        
+            // Fetch carousel and thumbnail containers
+            const carouselInner = document.querySelector('.carousel-inner');
+            const thumbnailContainer = document.querySelector('.thumbnail-container');
+        
+            // Clear existing items
+            carouselInner.innerHTML = '';
+            thumbnailContainer.innerHTML = '';
+        
+            // Fetch product images from backend
+            fetchProductImages(product.id)
+                .then(images => {
+                    // Add carousel items
+                    if (images && images.length > 0) {
+                        images.forEach((image, index) => {
+                            const carouselItem = document.createElement('div');
+                            carouselItem.classList.add('carousel-item');
+                            if (index === 0) {
+                                carouselItem.classList.add('active');
+                            }
+                            carouselItem.innerHTML = `
+                                <img src="http://localhost:8088/api/v1/products/images/${image.image_url}" class="d-block w-100" alt="Product Image">
+                            `;
+                            carouselInner.appendChild(carouselItem);
+        
+                            const thumbnailItem = document.createElement('div');
+                            thumbnailItem.classList.add('thumbnail-item');
+                            if (index === 0) {
+                                thumbnailItem.classList.add('active');
+                            }
+                            thumbnailItem.setAttribute('data-bs-target', '#carouselExample');
+                            thumbnailItem.setAttribute('data-bs-slide-to', index.toString());
+                            thumbnailItem.innerHTML = `
+                                <img src="http://localhost:8088/api/v1/products/images/${image.image_url}" class="thumbnail-image" alt="Thumbnail Image">
+                            `;
+                            thumbnailContainer.appendChild(thumbnailItem);
+                        });
+                    } else {
+                        // Hiển thị ảnh mặc định nếu không có ảnh
+                        const carouselItem = document.createElement('div');
+                        carouselItem.classList.add('carousel-item', 'active');
+                        carouselItem.innerHTML = `
+                            <img src="https://via.placeholder.com/800x600?text=No+Image" class="d-block w-100" alt="Product Image">
+                        `;
+                        carouselInner.appendChild(carouselItem);
+                    }
+                })
+                .catch(error => console.error('Error fetching product images:', error));
+        }
+
+        function decreaseQuantity() {
+            var quantityInput = document.getElementById("quantityInput");
+            var currentQuantity = parseInt(quantityInput.value, 10);
+    
+            if (currentQuantity > 1) {
+                quantityInput.value = currentQuantity - 1;
+            }
+        }
+    
+        function increaseQuantity() {
+            var quantityInput = document.getElementById("quantityInput");
+            var currentQuantity = parseInt(quantityInput.value, 10);
+    
+            quantityInput.value = currentQuantity + 1;
+        }
+    
+        function addToCart() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const productId = urlParams.get('id');
+            const quantity = parseInt(document.getElementById("quantityInput").value, 10);
+    
+            // Lấy giỏ hàng từ localStorage hoặc khởi tạo một mảng mới nếu chưa có
+            let cart = JSON.parse(localStorage.getItem('cart')) || [];
+    
+            // Kiểm tra nếu sản phẩm đã có trong giỏ hàng
+            const existingCartItem = cart.find(item => item.productId === productId);
+            if (existingCartItem) {
+                // Nếu có, tăng số lượng
+                existingCartItem.quantity += quantity;
+            } else {
+                // Nếu không, thêm sản phẩm mới vào giỏ hàng
+                cart.push({ productId, quantity });
+            }
+    
+            // Lưu giỏ hàng vào localStorage
+            localStorage.setItem('cart', JSON.stringify(cart));
+            alert('Sản phẩm đã được thêm vào giỏ hàng');
+        }
+    </script>
+</body>
+
+</html>

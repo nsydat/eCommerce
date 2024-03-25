@@ -1,0 +1,173 @@
+body {
+    background: linear-gradient(rgb(14, 17, 36), rgb(36, 26, 73));
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+header {
+    background-color: rgba(0, 0, 0, 0);
+    color: rgb(173, 178, 203);
+}
+footer {
+    margin-top: auto;
+}
+
+.navbar {
+    background-color: rgba(0, 0, 0, 0) !important;
+}
+
+.navbar .container {
+    background-color: rgba(0, 0, 0, 0) !important;
+}
+
+.navbar .container .navbar-brand {
+    color: rgb(173, 178, 203);
+}
+
+.navbar .container .navbar-nav .nav-link {
+    color: rgb(173, 178, 203);
+    border-radius: 18px;
+    padding: 8px 16px;
+}
+
+.navbar .container .navbar-nav .nav-link.active {
+    background-color: rgb(127, 68, 255) !important;
+    color: white !important;
+}
+
+.container {
+    
+}
+
+.intro-section {
+    text-align: center;
+    color: white;
+    padding: 20px;
+}
+
+.search-box {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+.search-box .btn{
+    margin-left: 10px;
+}
+
+.product-category {
+    background-color: rgb(19, 23, 42);
+    width: 200px;
+    cursor: pointer;
+}
+
+.product-category:focus {
+    background-color: initial;
+    color: white;
+}
+
+option {
+    background-color: rgb(19, 23, 42);
+}
+
+.search-input {
+    width: 300px;
+    background-color: rgb(19, 23, 42);
+    margin-right: 10px;
+    border-color: rgba(255, 255, 255, 0.5);
+    color: white;
+}
+
+.search-input:focus {
+    background-color: transparent;
+    color: white;
+}
+
+.form-control {
+    background-color: transparent;
+    color: white;
+}
+
+.form-control::placeholder {
+    color: rgba(255, 255, 255, 0.5);
+    opacity: 1;
+}
+
+.product-item {
+    display: flex;
+    flex-direction: column;
+    background-color: rgb(19, 23, 42);
+    border: 1px solid rgb(35, 39, 61);
+    border-radius: 20px;
+    padding: 20px;
+    margin-bottom: 20px;
+    height: 500px;
+}
+
+.product-image {
+    width: 100%;
+    height: 200px; /* Đặt chiều cao cố định cho hình ảnh */
+    object-fit: cover; /* Đảm bảo hình ảnh không bị méo */
+    margin-bottom: 10px;
+}
+
+.product-name {
+    color: white;
+}
+
+.product-description {
+    color: rgb(173, 178, 203);
+}
+
+.product-price {
+    color: white;
+}
+
+.product-action {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.product-content {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.product-action {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px; /* Khoảng cách cố định từ đáy */
+}
+
+.btn {
+    margin-right: 10px;
+}
+
+.pagination {
+    border-radius: 0.25rem;
+  }
+  
+  .page-link {
+    color: #fff;
+    background-color: rgba(0, 0, 0, 0.5);
+    border-color: rgba(255, 255, 255, 0.1);
+  }
+  
+  .page-item.active .page-link {
+    background-color: #007bff;
+    border-color: #007bff;
+  }
+  
+  .page-item.disabled .page-link {
+    color: rgba(255, 255, 255, 0.5);
+    background-color: rgba(0, 0, 0, 0.3);
+    border-color: rgba(255, 255, 255, 0.1);
+  }
+
+.space-x {
+    margin: 0 5px;
+}
+

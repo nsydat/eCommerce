@@ -1,0 +1,119 @@
+
+body {
+    background: linear-gradient(rgb(14, 17, 36), rgb(36, 26, 73));
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+header {
+    background-color: rgba(0, 0, 0, 0);
+    color: rgb(173, 178, 203);
+}
+footer {
+    margin-top: auto;
+}
+
+.navbar {
+    background-color: rgba(0, 0, 0, 0) !important;
+}
+
+.navbar .container {
+    background-color: rgba(0, 0, 0, 0) !important;
+}
+
+.navbar .container .navbar-brand {
+    color: rgb(173, 178, 203);
+}
+
+.navbar .container .navbar-nav .nav-link {
+    color: rgb(173, 178, 203);
+    border-radius: 18px;
+    padding: 8px 16px;
+}
+
+.navbar .container .navbar-nav .nav-link.active {
+    background-color: rgb(127, 68, 255) !important;
+    color: white !important;
+}
+
+body {
+    background: linear-gradient(rgb(14, 17, 36), rgb(36, 26, 73));
+}
+
+.container {
+    color: white;
+}
+
+.intro-section {
+    text-align: center;
+    color: white;
+    padding: 20px;
+}
+
+.product-header {
+    color: rgb(233, 66, 176);
+}
+
+.form-control {
+    background-color: rgb(19, 23, 42);
+    border: 1px solid rgb(29, 33, 54);
+    color: white;
+}
+
+.form-control:focus {
+    border-color: white;
+    background-color: rgb(19, 23, 42);
+}
+
+.form-label {
+    color: white;
+}
+
+.product-order {
+    color: rgb(105, 244, 181);
+}
+
+table {
+    width: 100%;
+    border-radius: 10px;
+    border: none;
+    border-collapse: separate;
+    border: 1px solid white;
+    border-spacing: 0;
+    background-color: rgb(12, 13, 54);
+}
+
+th,
+td {
+    padding: 10px;
+    text-align: center;
+}
+
+.product-info {
+    display: flex;
+    align-items: center;
+}
+
+.product-image {
+    width: 100px;
+    height: 100px;
+    border-radius: 5px;
+    margin-right: 10px;
+}
+
+.product-name {
+    color: white;
+    margin-right: 10px;
+}
+
+.btn-gradient {
+    background: linear-gradient(to right, rgb(225, 64, 180), rgb(126, 43, 237));
+    color: white;
+    border-radius: 30px;
+    width: 200px;
+}
+
+.form-control:focus {
+    color: white;
+}

@@ -1,0 +1,159 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="loginPage.css">
+    <title>Đăng nhập</title>
+</head>
+<body>
+    <header>
+        <nav class="navbar navbar-expand-lg navbar-light bg-dark">
+            <div class="container">
+                <a class="navbar-brand" href="../homePage/homePage.html">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="50" height="50">
+                        <circle cx="50" cy="50" r="45" fill="rgb(240, 101, 197)"/>
+                        <circle cx="50" cy="50" r="35" fill="rgb(127, 68, 255)"/>
+                    </svg>
+                </a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false"
+                    aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav">
+                        <li class="nav-item">
+                            <a class="nav-link active" href="../homePage/homePage.html">Trang chủ</a>
+                        </li>
+                          <li class="nav-item">
+                            <a class="nav-link" href="#">Thông báo</a>
+                          </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="../orderPage/order.html">
+                                <i class="fa-solid fa-cart-shopping"></i>
+                              Giỏ hàng
+                            </a>
+                        </li>
+                          <li class="nav-item">
+                            <a class="nav-link" href="./loginPage.html">Đăng nhập</a>
+                          </li>
+                    </ul>
+            </div>
+        </nav>
+    </header>
+    <div class = "container">
+      <div class="row">
+        <div class="col-md-6 offset-md-3">
+            <div class="login-form mx-auto">
+                <h2 class="login-header">Đăng nhập</h2>
+                <div class="form-group">
+                    <label for="email">Phone</label>
+                    <input type="text" class="form-control" id="email">
+                    <div class="divider-nospace"></div>
+                </div>
+                <div class="mt-5"></div>
+                <div class="form-group password-field">
+                    <label for="password">Mật khẩu</label>
+                    <input type="password" placeholder="Ít nhất 3 ký tự" class="form-control" id="password">
+                    <i class="password-toggle fas fa-eye-slash"></i>
+                    <div class="divider-nospace"></div>
+                </div>
+                <div class="form-group">
+                    <div class="form-check checkbox-text">
+                        <span style="display: flex;">
+                            <input type="checkbox" class="form-check-input" id="remember">
+                            <label class="form-check-label text-start" for="remember">Ghi nhớ đăng nhập</label>
+                        </span>
+                        <a href="#" class="register-link">Quên mật khẩu</a>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <select class="form-control access-right">
+                        <option selected disabled>Quyền đăng nhập</option>
+                        <option value="1">Người dùng</option>
+                        <option value="2">Quản trị viên</option>
+                    </select>
+                </div>
+                <button type="button" class="login-button" onclick="loginUser()">Đăng nhập</button>
+                <div class="divider"></div>
+                <p class="text-center">
+                    Bạn chưa đăng ký? 
+                    <span>
+                        <a href="../registerPage/register.html" class="register-link">Tạo tài khoản</a>
+                    </span>
+                </p>
+            </div>
+        </div>
+      </div>
+      <script>
+        $(document).ready(function () {
+            // Function to toggle password visibility
+            function togglePasswordVisibility() {
+                var passwordInput = $("#password");
+                var passwordIcon = $(".password-toggle");
+    
+                // Toggle the type attribute of the password input
+                if (passwordInput.attr("type") === "password") {
+                    passwordInput.attr("type", "text");
+                    passwordIcon.removeClass("fa-eye-slash").addClass("fa-eye");
+                } else {
+                    passwordInput.attr("type", "password");
+                    passwordIcon.removeClass("fa-eye").addClass("fa-eye-slash");
+                }
+            }
+    
+            // Attach click event to the eye icon
+            $(".password-toggle").click(function () {
+                togglePasswordVisibility();
+            });
+        });
+
+        function loginUser() {
+            const email = $("#email").val();
+            const password = $("#password").val();
+            const roleId = $(".access-right").val(); 
+        
+            const loginDTO = {
+                phoneNumber: email,
+                password: password,
+                roleId: roleId 
+            };
+        
+            fetch("http://localhost:8088/api/v1/users/login", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    "Accept-language": "vi"
+                },
+                body: JSON.stringify(loginDTO)
+            })
+            .then(response => response.json())
+            .then(data => {
+                localStorage.setItem("authToken", data);           // Lưu trữ token vào localStorage
+                window.location.href = "../homePage/homePage.html";
+                })
+            .catch(error => {
+                console.error("Đăng nhập thất bại:", error);
+            });
+        }
+    </script>
+    </div>
+    <footer>
+        <div class="footer">
+            <div class="container">
+                <div class="row product-description">
+                    <div class="col-md-6">
+                        <p>&copy: 2023 Your Company. All rights reserved</p>
+                    </div>
+                    <div class="col-md-6">
+                        <p class="text-end">Terms of Service | Privacy Policy</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>
