@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Thông tin người dùng</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="../js/checkLogin.js"></script>
+    <link rel="stylesheet" type="text/css" href="userProfile.css">
+</head>
+<body>
+    <header>
+        <nav class="navbar navbar-expand-lg navbar-light bg-dark">
+            <div class="container">
+                <a class="navbar-brand" href="./homePage.html">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="50" height="50">
+                        <circle cx="50" cy="50" r="45" fill="rgb(240, 101, 197)"/>
+                        <circle cx="50" cy="50" r="35" fill="rgb(127, 68, 255)"/>
+                    </svg>
+                </a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false"
+                    aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav">
+                        <li class="nav-item">
+                            <a class="nav-link active" href="../homePage/homePage.html">Trang chủ</a>
+                        </li>
+                          <li class="nav-item">
+                            <a class="nav-link" href="#">Thông báo</a>
+                          </li>
+                        <li class="nav-item">
+                          <a class="nav-link" href="../orderPage/order.html">
+                                <i class="fa-solid fa-cart-shopping"></i>
+                              Giỏ hàng
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                          <a class="nav-link" href="../loginPage/loginPage.html" id="login-link">Đăng nhập</a>
+                          <span class="nav-link" id="user-name" style="cursor: pointer;">
+                            <!-- Tên người dùng sẽ được hiển thị ở đây -->
+                        </span>
+                      </li>
+                    </ul>
+            </div>
+        </nav>
+    </header>
+
+    <div class="container">
+        <h2 class="text-center my-4">Thông tin người dùng</h2>
+        <div class="row">
+            <div class="col-md-3 infor">
+                <!-- Phần hiển thị thông tin người dùng -->
+                <div class="mb-3 name">
+                    <p>Họ và tên: <span id="name"></span></p>
+                </div>
+                <div class="mb-3 phone">
+                    <p>Số điện thoại: <span id="phone"></span></p>
+                </div>
+                <div class="mb-3 address">
+                    <p>Địa chỉ: <span id="address"></span></p>
+                </div>
+                <div class="mb-3 dob">
+                    <p>Ngày sinh: <span id="dob"></span></p>
+                </div>
+                <button class="btn btn-primary" id="edit-user-info">Thay đổi thông tin cá nhân</button>
+            </div>
+
+            <div class="col-md-9">
+                <h3 style ="color: rgb(233, 66, 176);">Đơn đã đặt</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Sản phẩm</th>
+                            <th>Tên sản phẩm</th>
+                            <th>Số lượng</th>
+                            <th>Giá</th>
+                            <th>Phương thức vận chuyển</th>
+                            <th>Phương thức thanh toán</th>
+                            <th>Thời gian tạo</th>
+                        </tr>
+                    </thead>
+                    <tbody id="order-list">
+                        <!-- Orders will be added here dynamically -->
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="modal fade" id="editUserInfoModal" tabindex="-1" aria-labelledby="editUserInfoModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h5 class="modal-title" id="editUserInfoModalLabel">Cập nhật thông tin cá nhân</h5>
+                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                      <form id="editUserInfoForm">
+                        <div class="mb-3">
+                          <label for="fullname" class="form-label">Họ và tên</label>
+                          <input type="text" class="form-control" id="fullname" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="editAddress" class="form-label">Địa chỉ</label>
+                            <input type="text" class="form-control" id="editAddress" required>
+                          </div>
+                          <div class="mb-3">
+                            <label for="editDob" class="form-label">Ngày sinh</label>
+                            <input type="date" class="form-control" id="editDob" required>
+                          </div>                          
+                        <div class="mb-3">
+                          <label for="password" class="form-label">Mật khẩu mới</label>
+                          <input type="password" class="form-control" id="password">
+                        </div>
+                        <div class="mb-3">
+                          <label for="retypePassword" class="form-label">Nhập lại mật khẩu mới</label>
+                          <input type="password" class="form-control" id="retypePassword">
+                        </div>
+                      </form>
+                    </div>
+                    <div class="modal-footer">
+                      <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
+                      <button type="button" class="btn btn-primary" id="saveUserInfoBtn">Lưu thay đổi</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+            <div class="text-center mt-3">
+                <button class="btn btn-gradient" type="button" id="continueShoppingBtn">Tiếp tục mua sắm</button>
+            </div>
+        </div>
+    </div>
+    <footer>
+        <div class="footer">
+            <div class="container">
+                <div class="row product-description">
+                    <div class="col-md-6">
+                        <p>&copy: 2023 Your Company. All rights reserved</p>
+                    </div>
+                    <div class="col-md-6">
+                        <p class="text-end">Terms of Service | Privacy Policy</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+</body>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        checkUserLogin();
+        const userDetails = JSON.parse(localStorage.getItem('userDetails'));
+
+        if (userDetails) {
+            document.getElementById('name').textContent = userDetails.full_name;
+            document.getElementById('phone').textContent = userDetails.phone_number;
+            document.getElementById('address').textContent = userDetails.address;
+            const dateOfBirth = formatDate(userDetails.date_of_birth);
+            document.getElementById('dob').textContent = dateOfBirth;
+        }
+
+        // Xử lý sự kiện click cho tên người dùng
+        const userNameSpan = document.getElementById('user-name');
+        const popoverContent = `
+            <div class="list-group">
+                <a href="../userProfilePage/userProfile.html" class="list-group-item list-group-item-action">Thông tin tài khoản</a>
+                <a href="../orderPage/order.html" class="list-group-item list-group-item-action">Đơn mua</a>
+                <a href="#" class="list-group-item list-group-item-action logout-link">Đăng xuất</a>
+            </div>
+        `;
+
+        let popover;
+
+        userNameSpan.addEventListener('click', function(event) {
+            event.stopPropagation(); // Ngăn chặn sự kiện click lan ra phần tử khác
+
+            if (!popover) {
+                // Khởi tạo popover
+                popover = new bootstrap.Popover(userNameSpan, {
+                    content: popoverContent,
+                    html: true,
+                    trigger: 'manual', // Sử dụng trigger 'manual'
+                    container: 'body'
+                });
+            }
+
+            // Hiển thị popover
+            popover.show();
+        });
+
+        // Ẩn popover khi click bên ngoài
+        document.addEventListener('click', function() {
+            if (popover) {
+                popover.hide();
+            }
+        });
+
+        const continueShoppingBtn = document.getElementById('continueShoppingBtn');
+        continueShoppingBtn.addEventListener('click', function() {
+            window.location.href = '../homePage/homePage.html';
+        });
+
+        document.addEventListener('click', function(e) {
+            if (e.target && e.target.matches('.logout-link')) {
+                e.preventDefault(); // Prevent default action
+                logout(); // Call the logout function defined in checkLogin.js
+            }
+        });
+    });
+
+    function fetchAndDisplayOrders(userId) {
+        const authToken = localStorage.getItem('authToken'); // Assuming you store authToken in localStorage
+        fetch(`http://localhost:8088/api/v1/orders/user/${userId}`, {
+            headers: {
+                'Authorization': `Bearer ${authToken}`
+            }
+        })
+        .then(response => response.json())
+        .then(orders => {
+            displayOrders(orders);
+        })
+        .catch(error => console.error('Error fetching orders:', error));
+    }
+    
+    function displayOrders(orders) {
+        const orderListElement = document.getElementById('order-list');
+        orderListElement.innerHTML = ''; // Clear existing orders
+    
+        orders.forEach(order => {
+            const row = document.createElement('tr');
+            const orderDate = new Date(order.orderDate).toLocaleDateString();
+            const shippingDate = order.shippingDate ? new Date(...order.shippingDate).toLocaleDateString() : 'N/A';
+    
+            order.orderDetails.forEach(detail => {
+                const productName = detail.product.name;
+                const quantity = detail.numberOfProduct;
+                const price = detail.price;
+                const thumbnail = `http://localhost:8088/api/v1/products/images/${detail.product.thumbnail}`;
+    
+                const productDetails = `
+                    <div class="product-detail">                       
+                        <img src="${thumbnail}" alt="${productName}" style="width: 100px; height: auto;">
+                    </div>
+                `;
+    
+                row.innerHTML += `
+                    <td>${productDetails}</td>
+                    <td>${productName}</td>
+                    <td>${quantity}</td>
+                    <td>$${price}</td>
+                    <td>${order.shippingMethod}</td>
+                    <td>${order.paymentMethod}</td>
+                    <td>${orderDate}</td> 
+                `;
+            });
+    
+            orderListElement.appendChild(row);
+        });
+    }
+    
+    
+    // Example usage
+    document.addEventListener('DOMContentLoaded', function() {
+        const userDetails = JSON.parse(localStorage.getItem('userDetails'));
+        if (userDetails && userDetails.id) {
+            fetchAndDisplayOrders(userDetails.id);
+        } else {
+            // Handle case where user details are not available
+        }
+    });
+
+    // Thêm sự kiện click cho nút "Thay đổi thông tin cá nhân"
+        document.getElementById('edit-user-info').addEventListener('click', function() {
+            const userDetails = JSON.parse(localStorage.getItem('userDetails'));
+        
+            // Điền giá trị hiện tại của người dùng vào các trường input trong modal
+            document.getElementById('fullname').value = userDetails.full_name;
+            document.getElementById('address').value = userDetails.address;
+            document.getElementById('dob').value = userDetails.date_of_birth;
+        
+            // Hiển thị modal
+            const editUserInfoModal = new bootstrap.Modal(document.getElementById('editUserInfoModal'));
+            editUserInfoModal.show();
+        });
+        
+        document.getElementById('saveUserInfoBtn').addEventListener('click', function() {
+            const userDetails = JSON.parse(localStorage.getItem('userDetails'));
+            const userId = userDetails.id;
+            const authToken = localStorage.getItem('authToken');
+
+            const fullName = document.getElementById('fullname').value;
+            const addressInput = document.getElementById('editAddress').value; // Sửa lại id ở đây
+            const dobInput = document.getElementById('editDob').value; // Và ở đây
+            const password = document.getElementById('password').value;
+            const retypePassword = document.getElementById('retypePassword').value;
+                
+            // Kiểm tra mật khẩu mới và xác nhận mật khẩu mới có khớp nhau hay không
+            if (password && password !== retypePassword) {
+                alert('Mật khẩu mới và xác nhận mật khẩu không khớp');
+                return;
+            }
+        
+            const updatedUserDetails = {};
+        
+            if (fullName && fullName !== userDetails.full_name) updatedUserDetails.full_name = fullName;
+            if (addressInput && addressInput !== userDetails.address) updatedUserDetails.address = addressInput;
+            if (dobInput && dobInput !== userDetails.date_of_birth) updatedUserDetails.date_of_birth = dobInput;
+            if (password) updatedUserDetails.password = password;
+            console.log(updatedUserDetails);
+            // Chỉ gửi request nếu có thông tin cần cập nhật
+            if (Object.keys(updatedUserDetails).length > 0) {
+        
+                fetch(`http://localhost:8088/api/v1/users/details/${userId}`, {
+                    method: 'PUT',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${authToken}`
+                    },
+                    body: JSON.stringify(updatedUserDetails)
+                })
+                .then(response => {
+                    if (response.ok) {
+                        return response.json();
+                    } else {
+                        throw new Error('Đã xảy ra lỗi khi cập nhật thông tin');
+                    }
+                })
+                .then(data => {
+                    // Cập nhật thông tin hiển thị trên trang
+                    document.getElementById('name').textContent = fullName || userDetails.full_name;
+                    document.getElementById('address').textContent = addressInput || userDetails.address;
+                    document.getElementById('dob').textContent = dobInput || userDetails.date_of_birth;
+        
+                    // Đóng modal sau khi cập nhật thành công
+                    const editUserInfoModal = bootstrap.Modal.getInstance(document.getElementById('editUserInfoModal'));
+                    editUserInfoModal.hide();
+                    alert('Cập nhật thông tin thành công');
+                })
+                .catch(error => {
+                    console.error('Error updating user details:', error);
+                    alert(error.message || 'Đã xảy ra lỗi khi cập nhật thông tin');
+                });
+            } else {
+                alert('Không có thông tin nào được thay đổi.');
+            }
+        });        
+        function formatDate(timestamp) {
+            const date = new Date(timestamp);
+            return date.toISOString().split('T')[0]; // Trả về dạng yyyy-MM-dd
+        }
+</script>
+</html>

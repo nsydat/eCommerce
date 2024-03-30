@@ -4,6 +4,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
     <link rel="stylesheet" type="text/css" href="order-confirm.css">
     <title>Xác nhận đơn hàng</title>
 </head>
@@ -35,9 +36,11 @@
                             Giỏ hàng
                         </a>
                     </li>
-                      <li class="nav-item">
-                        <a class="nav-link" href="../loginPage/loginPage.html">Đăng nhập</a>
-                      </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="../loginPage/loginPage.html" id="login-link">Đăng nhập</a>
+                        <span class="nav-link" id="user-name" style="cursor: pointer;">
+                          <!-- Tên người dùng sẽ được hiển thị ở đây -->
+                      </span>
                 </ul>
         </div>
     </nav>
@@ -112,9 +115,45 @@
             </div>
         </div>
     </footer>
-
+    <script src="../js/checkLogin.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', function() {
+            checkUserLogin();
+            // Xử lý sự kiện click cho tên người dùng
+        const userNameSpan = document.getElementById('user-name');
+        const popoverContent = `
+            <div class="list-group">
+                <a href="../userProfilePage/userProfile.html" class="list-group-item list-group-item-action">Thông tin tài khoản</a>
+                <a href="../orderPage/order.html" class="list-group-item list-group-item-action">Đơn mua</a>
+                <a href="#" class="list-group-item list-group-item-action logout-link">Đăng xuất</a>
+            </div>
+        `;
+
+        let popover;
+
+        userNameSpan.addEventListener('click', function(event) {
+            event.stopPropagation(); // Ngăn chặn sự kiện click lan ra phần tử khác
+
+            if (!popover) {
+                // Khởi tạo popover
+                popover = new bootstrap.Popover(userNameSpan, {
+                    content: popoverContent,
+                    html: true,
+                    trigger: 'manual', // Sử dụng trigger 'manual'
+                    container: 'body'
+                });
+            }
+
+            // Hiển thị popover
+            popover.show();
+        });
+
+        // Ẩn popover khi click bên ngoài
+        document.addEventListener('click', function() {
+            if (popover) {
+                popover.hide();
+            }
+        });
             const cart = JSON.parse(localStorage.getItem('cart')) || [];
             localStorage.removeItem('cart');
 
@@ -139,8 +178,15 @@
 
             const continueShoppingBtn = document.getElementById('continueShoppingBtn');
             continueShoppingBtn.addEventListener('click', function() {
-            window.location.href = '../homePage/homePage.html';
-    });
+                window.location.href = '../homePage/homePage.html';
+            });
+
+            document.addEventListener('click', function(e) {
+                if (e.target && e.target.matches('.logout-link')) {
+                    e.preventDefault(); // Prevent default action
+                    logout(); // Call the logout function defined in checkLogin.js
+                }
+            });
         });
         
         function displayProducts(products, cart) {

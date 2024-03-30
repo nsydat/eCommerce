@@ -111,53 +111,6 @@ option {
     opacity: 1;
 }
 
-.product-item {
-    display: flex;
-    flex-direction: column;
-    background-color: rgb(19, 23, 42);
-    border: 1px solid rgb(35, 39, 61);
-    border-radius: 20px;
-    padding: 20px;
-    margin-bottom: 20px;
-    height: 500px;
-}
-
-.product-image {
-    width: 100%;
-    height: 200px; /* Đặt chiều cao cố định cho hình ảnh */
-    object-fit: cover; /* Đảm bảo hình ảnh không bị méo */
-    margin-bottom: 10px;
-}
-
-.product-name {
-    color: white;
-}
-
-.product-description {
-    color: rgb(173, 178, 203);
-}
-
-.product-price {
-    color: white;
-}
-
-.product-action {
-    display: flex;
-    justify-content: center;
-    margin-top: 20px;
-}
-
-.product-content {
-    flex-grow: 1;
-    display: flex;
-    flex-direction: column;
-}
-
-.product-action {
-    display: flex;
-    justify-content: center;
-    margin-bottom: 20px; /* Khoảng cách cố định từ đáy */
-}
 
 .btn {
     margin-right: 10px;
@@ -188,3 +141,75 @@ option {
     margin: 0 5px;
 }
 
+.mb-3 {
+    color: white;
+}
+
+.infor {
+    display: flex;
+    flex-direction: column;
+    background-color: rgb(19, 23, 42);
+    border: 1px solid rgb(35, 39, 61);
+    border-radius: 20px;
+    padding: 20px;
+    margin-bottom: 20px;
+    height: auto;
+}
+
+.btn-gradient {
+    background: linear-gradient(to right, rgb(225, 64, 180), rgb(126, 43, 237));
+    color: white;
+    border-radius: 30px;
+    width: 200px;
+}
+
+.text-center {
+    color: rgb(233, 66, 176);
+}
+
+table {
+    width: 100%;
+    border-radius: 10px;
+    border: none;
+    border-collapse: separate;
+    border: 1px solid rgb(35, 39, 61);
+    border-spacing: 0;
+    background: linear-gradient(to bottom, rgb(14, 17, 36), rgb(36, 26, 73)); /* Thay đổi màu nền bằng gradient giống background của trang web */
+}
+
+tr {
+    background: linear-gradient(to bottom, rgb(14, 17, 36), rgb(36, 26, 73)); /* Thay đổi màu nền dòng bằng gradient giống background của trang web */
+}
+
+th,
+td {
+    padding: 10px;
+    text-align: center;
+    color: rgb(173, 178, 203); /* Thay đổi màu chữ phù hợp với background */
+    background-color: transparent; /* Đặt background trong suốt để hiển thị gradient màu nền của <tr> */
+}
+
+.product-detail {
+    color: white; /* Thay đổi màu chữ */
+    background-color: rgb(19, 23, 42); /* Thay đổi màu nền */
+    padding: 10px;
+    border-radius: 5px;
+    margin-bottom: 5px;
+}
+
+.product-detail p {
+    margin: 0;
+}
+
+.product-detail img {
+    max-width: 100%;
+    height: auto;
+}
+
+label {
+    color: #000000; /* Màu đen */
+  }
+
+.form-control {
+    color: #000000;
+}

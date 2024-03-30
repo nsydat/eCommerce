@@ -37,6 +37,25 @@ footer {
     color: white !important;
 }
 
+.popover {
+    background-color: rgb(19, 23, 42);
+    border-color: rgb(35, 39, 61);
+}
+
+.popover-body {
+    color: white;
+}
+
+.popover .list-group-item {
+    background-color: rgb(19, 23, 42);
+    color: white;
+    border-color: rgb(35, 39, 61);
+}
+
+.popover .list-group-item:hover {
+    background-color: rgb(35, 39, 61);
+}
+
 .container {
     color: white;
 }

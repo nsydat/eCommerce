@@ -37,6 +37,25 @@ footer {
     color: white !important;
 }
 
+.popover {
+    background-color: rgb(19, 23, 42);
+    border-color: rgb(35, 39, 61);
+}
+
+.popover-body {
+    color: white;
+}
+
+.popover .list-group-item {
+    background-color: rgb(19, 23, 42);
+    color: white;
+    border-color: rgb(35, 39, 61);
+}
+
+.popover .list-group-item:hover {
+    background-color: rgb(35, 39, 61);
+}
+
 body {
     background: linear-gradient(rgb(14, 17, 36), rgb(36, 26, 73));
 }
@@ -116,4 +135,15 @@ td {
 
 .form-control:focus {
     color: white;
+}
+
+.quantity-controls {
+    display: flex;
+    align-items: center;
+    border-radius: 4px;
+    padding: 4px;
+}
+
+.quantity-input {
+    width: 30px;
 }

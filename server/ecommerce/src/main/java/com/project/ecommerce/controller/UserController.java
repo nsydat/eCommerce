@@ -1,8 +1,10 @@
 package com.project.ecommerce.controller;
 
+import com.project.ecommerce.dtos.UpdateUserDTO;
 import com.project.ecommerce.dtos.UserDTO;
 import com.project.ecommerce.dtos.UserLoginDTO;
 import com.project.ecommerce.models.User;
+import com.project.ecommerce.reponses.UserResponse;
 import com.project.ecommerce.repositories.UserRepository;
 import com.project.ecommerce.services.IUserService;
 import com.project.ecommerce.services.UserService;
@@ -57,4 +59,37 @@ public class UserController {
             return ResponseEntity.badRequest().body(e.getMessage());
         }
     }
+
+    @PostMapping("/details")
+    public ResponseEntity<UserResponse> getUserDetails(@RequestHeader("Authorization") String authorizationHeader) {
+        try {
+            String extractedToken = authorizationHeader.substring(7);
+            User user = userService.getUserDetailsFromToken(extractedToken);
+            return ResponseEntity.ok(UserResponse.fromUser(user));
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().build();
+        }
+    }
+
+    @PutMapping("details/{userId}")
+    public ResponseEntity<UserResponse> updateUserDetails(
+            @PathVariable Long userId,
+            @RequestBody UpdateUserDTO updateUserDTO,
+            @RequestHeader("Authorization") String authorizationHeader) {
+        try {
+            String extractedToken = authorizationHeader.substring(7);
+            User user = userService.getUserDetailsFromToken(extractedToken);
+
+            if (user.getId() != userId) {
+                return ResponseEntity.status(HttpStatus.FORBIDDEN).build();
+            }
+
+            User updatedUser = userService.updateUser(updateUserDTO, userId);
+
+            return ResponseEntity.ok(UserResponse.fromUser(updatedUser));
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().build();
+        }
+    }
+
 }
