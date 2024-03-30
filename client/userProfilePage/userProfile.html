@@ -162,7 +162,6 @@
             document.getElementById('dob').textContent = dateOfBirth;
         }
 
-        // Xử lý sự kiện click cho tên người dùng
         const userNameSpan = document.getElementById('user-name');
         const popoverContent = `
             <div class="list-group">
@@ -175,23 +174,21 @@
         let popover;
 
         userNameSpan.addEventListener('click', function(event) {
-            event.stopPropagation(); // Ngăn chặn sự kiện click lan ra phần tử khác
+            event.stopPropagation(); 
 
             if (!popover) {
                 // Khởi tạo popover
                 popover = new bootstrap.Popover(userNameSpan, {
                     content: popoverContent,
                     html: true,
-                    trigger: 'manual', // Sử dụng trigger 'manual'
+                    trigger: 'manual', 
                     container: 'body'
                 });
             }
-
-            // Hiển thị popover
             popover.show();
         });
 
-        // Ẩn popover khi click bên ngoài
+        
         document.addEventListener('click', function() {
             if (popover) {
                 popover.hide();
@@ -205,14 +202,14 @@
 
         document.addEventListener('click', function(e) {
             if (e.target && e.target.matches('.logout-link')) {
-                e.preventDefault(); // Prevent default action
-                logout(); // Call the logout function defined in checkLogin.js
+                e.preventDefault(); 
+                logout(); 
             }
         });
     });
 
     function fetchAndDisplayOrders(userId) {
-        const authToken = localStorage.getItem('authToken'); // Assuming you store authToken in localStorage
+        const authToken = localStorage.getItem('authToken'); 
         fetch(`http://localhost:8088/api/v1/orders/user/${userId}`, {
             headers: {
                 'Authorization': `Bearer ${authToken}`
